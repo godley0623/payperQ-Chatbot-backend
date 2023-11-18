@@ -14,6 +14,6 @@ const port = process.env.PORT || 7000;
 app.use('/token', tokenRouter);
 app.use('/openai', openaiRouter);
 
-console.log(`PORT: ${port}`);
+console.log(`PORT: ${port}\nKEY: ${process.env.OPENAI_API_KEY}`);
 
 app.listen(port);

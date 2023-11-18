@@ -8,6 +8,7 @@ router.post('/', async (req, res) => {
     const prompt = "You are ChatGPT, a large language model trained by OpenAI. Follow the user's instructions carefully. Respond using markdown."
     const temperature = req.body.temperature
     const messages = [{ "role": "system", "content": prompt }, ...req.body.messages]
+    let full = ""
     
     const stream = await openai.chat.completions.create({
         model: model,
@@ -19,6 +20,9 @@ router.post('/', async (req, res) => {
         const chunk = part.choices[0].delta.content
         if (chunk !== undefined) {
             res.write(chunk)
+            full += chunk
+            console.clear()
+            console.log(full)
         }else {
             res.end()
             return
